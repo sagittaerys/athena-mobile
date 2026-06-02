@@ -2,7 +2,7 @@ export const FontFamily = {
   regular: 'CabinetGrotesk-Regular',
   medium: 'CabinetGrotesk-Medium',
   bold: 'CabinetGrotesk-Bold',
-  extraBold: 'CabinetGrotesk-ExtraBold',
+  extraBold: 'CabinetGrotesk-Extrabold',
 } as const
 
 export const FontSize = {
