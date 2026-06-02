@@ -20,7 +20,7 @@ export default function RootLayout() {
     'CabinetGrotesk-Regular': require('../assets/fonts/CabinetGrotesk-Regular.otf'),
     'CabinetGrotesk-Medium': require('../assets/fonts/CabinetGrotesk-Medium.otf'),
     'CabinetGrotesk-Bold': require('../assets/fonts/CabinetGrotesk-Bold.otf'),
-    'CabinetGrotesk-ExtraBold': require('../assets/fonts/CabinetGrotesk-ExtraBold.otf'),
+    'CabinetGrotesk-ExtraBold': require('../assets/fonts/CabinetGrotesk-Extrabold.otf'),
   })
 
   useEffect(() => {

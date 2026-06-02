@@ -22,7 +22,13 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#F7F5F2"
       },
-      "package": "com.sagittaerys.athena"
+      "package": "com.sagittaerys.athena",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -47,6 +53,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "8f888766-72c6-411f-8bf1-811f4b06e002"
+      }
     }
   }
 }
