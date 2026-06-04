@@ -41,7 +41,7 @@ export default function WelcomeScreen() {
               ]}
             >
               <Image
-                source={{ uri: book.cover }}
+                source={book.cover}
                 style={styles.bookCover}
                 contentFit="cover"
               />

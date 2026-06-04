@@ -3,8 +3,8 @@ import { useAuthStore } from '@/features/auth/store/authStore'
 import { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { View } from 'react-native'
+import { ONBOARDING_KEY } from '@/shared/constants/onboarding'
 
-const ONBOARDING_KEY = 'athena_onboarding_complete'
 
 export default function Index() {
   const { isAuthenticated } = useAuthStore()
