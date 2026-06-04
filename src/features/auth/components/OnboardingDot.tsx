@@ -3,7 +3,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import { StyleSheet } from 'react-native'
-import { Colors, Theme } from '@/shared/constants/colors'
+import { Theme } from '@/shared/constants/colors'
 import { Radius } from '@/shared/constants/spacing'
 
 type Props = {
