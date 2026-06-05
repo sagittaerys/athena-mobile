@@ -31,3 +31,4 @@ export const Colors = {
 
 export type ColorScheme = 'light' | 'dark'
 export type ThemeColors = typeof Colors.light
+export type Theme = typeof Colors[keyof typeof Colors]

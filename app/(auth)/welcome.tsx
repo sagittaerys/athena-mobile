@@ -6,29 +6,10 @@ import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated'
 import { Colors } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { SAMPLE_BOOKS } from '@/shared/constants/welcome'
 
 const { width, height } = Dimensions.get('window')
 
-const SAMPLE_BOOKS = [
-  {
-    id: '1',
-    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1577043824i/44492285._SY800_.jpg',
-    rotate: '-15deg',
-    translateY: 30,
-  },
-  {
-    id: '2',
-    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1764612571l/235672452._SY800_.jpg',
-    rotate: '0deg',
-    translateY: 0,
-  },
-  {
-    id: '3',
-    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1755139932l/240114457._SY800_.jpg',
-    rotate: '15deg',
-    translateY: 30,
-  },
-]
 
 export default function WelcomeScreen() {
   const colorScheme = useColorScheme()
@@ -37,7 +18,7 @@ export default function WelcomeScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      
+
       <Animated.View
         entering={FadeInDown.delay(200).duration(600).springify()}
         style={styles.booksContainer}
@@ -60,7 +41,7 @@ export default function WelcomeScreen() {
               ]}
             >
               <Image
-                source={{ uri: book.cover }}
+                source={book.cover}
                 style={styles.bookCover}
                 contentFit="cover"
               />
@@ -74,10 +55,10 @@ export default function WelcomeScreen() {
         style={styles.content}
       >
         <Text style={[styles.title, { color: theme.text }]}>
-          Read more.{'\n'}In your own voice.
+          Your library.{'\n'}Your voice.
         </Text>
         <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
-          Athena reads any book to you in a voice cloned from yours.
+          Create an account to import any book or browse 70,000+ free titles, then listen in a voice cloned from yours.
         </Text>
 
         <Pressable
@@ -127,7 +108,7 @@ const styles = StyleSheet.create({
     height: height * 0.32,
     borderRadius: Radius.sm,
   },
- content: {
+  content: {
     width: '100%',
     gap: Spacing.lg,
     paddingVertical: Spacing.xxl,
@@ -136,7 +117,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.bold,
     fontSize: FontSize.xxxl,
     lineHeight: FontSize.xxxl * 1.2,
-    
+
   },
   subtitle: {
     fontFamily: FontFamily.regular,
