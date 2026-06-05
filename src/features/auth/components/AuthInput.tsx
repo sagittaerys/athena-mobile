@@ -10,6 +10,7 @@ import {
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { Eye, EyeOff } from 'lucide-react-native';
 
 interface AuthInputProps extends TextInputProps {
   label: string
@@ -48,7 +49,7 @@ export function AuthInput({ label, theme, secureTextEntry, ...props }: AuthInput
             style={styles.eyeButton}
           >
             <Text style={[styles.eyeIcon, { color: theme.textTertiary }]}>
-              {isVisible ? '👁' : '👁‍🗨'}
+              {isVisible ?  <Eye size={24} /> : <EyeOff size={24} />}
             </Text>
           </Pressable>
         )}

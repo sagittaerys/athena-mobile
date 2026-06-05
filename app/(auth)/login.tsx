@@ -16,8 +16,8 @@ import { Colors, Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { AuthInput } from '@/features/auth/components/AuthInput'
-import Ionicons from '@expo/vector-icons/Ionicons';
-
+import { X } from 'lucide-react-native';
+import { CircleArrowLeft } from 'lucide-react-native';
 
 
 
@@ -51,11 +51,7 @@ export default function LoginScreen() {
         <Animated.View entering={FadeInDown.delay(200).springify()} style={styles.header}>
           <Pressable onPress={() => router.back()} hitSlop={16} style={styles.backButton}>
 
-            <Ionicons
-              name="arrow-back-circle"
-              color={theme.text}
-              size={35}
-            />
+            <CircleArrowLeft size={35} color={theme.text} />
 
           </Pressable>
           <Text style={[styles.title, { color: theme.text }]}>Welcome{'\n'}back.</Text>
@@ -69,7 +65,9 @@ export default function LoginScreen() {
             <View style={[styles.errorBanner, { backgroundColor: '#FF3B3015' }]}>
               <Text style={styles.errorText}>{error}</Text>
               <Pressable onPress={clearError} hitSlop={8}>
-                <Text style={styles.errorDismiss}>✕</Text>
+                <Text style={styles.errorDismiss}>
+                  <X size={24} />
+                </Text>
               </Pressable>
             </View>
           )}

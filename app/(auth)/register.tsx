@@ -9,7 +9,6 @@ import {
   ScrollView,
 } from 'react-native'
 import { router } from 'expo-router'
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { useColorScheme } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import { useAuthStore } from '@/features/auth/store/authStore'
@@ -17,8 +16,8 @@ import { Colors, Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { AuthInput } from '@/features/auth/components/AuthInput'
-
-
+import { X } from 'lucide-react-native';
+import { CircleArrowLeft } from 'lucide-react-native';
 
 
 export default function RegisterScreen() {
@@ -39,7 +38,7 @@ export default function RegisterScreen() {
         password,
       })
       router.replace('/(auth)/voice-setup')
-    } catch {}
+    } catch { }
   }
 
   return (
@@ -47,7 +46,7 @@ export default function RegisterScreen() {
       style={[styles.container, { backgroundColor: theme.background }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      
+
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -57,7 +56,7 @@ export default function RegisterScreen() {
         <Animated.View entering={FadeInDown.delay(200).springify()} style={styles.header}>
 
           <Pressable onPress={() => router.back()} hitSlop={16} style={styles.backButton}>
-            <Ionicons name="arrow-back-circle" size={35} color={theme.text} />
+            <CircleArrowLeft size={35} color={theme.text} />
           </Pressable>
 
           <Text style={[styles.title, { color: theme.text }]}>Create your{'\n'}account.</Text>
@@ -71,7 +70,9 @@ export default function RegisterScreen() {
             <View style={[styles.errorBanner, { backgroundColor: '#FF3B3015' }]}>
               <Text style={styles.errorText}>{error}</Text>
               <Pressable onPress={clearError} hitSlop={8}>
-                <Text style={styles.errorDismiss}>✕</Text>
+                <Text style={styles.errorDismiss}>
+                  <X size={24} />
+                </Text>
               </Pressable>
             </View>
           )}
