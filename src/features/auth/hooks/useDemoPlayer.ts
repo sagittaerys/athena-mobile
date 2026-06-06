@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useAudioPlayer } from 'expo-audio'
 
-const DEMO_AUDIO_URI = require('../../../assets/audio/demo-voice.wav')
+const DEMO_AUDIO_URI = require('../../../../assets/audio/demo-voice.wav')
 
 export function useDemoPlayer() {
   const player = useAudioPlayer(DEMO_AUDIO_URI)
