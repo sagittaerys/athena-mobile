@@ -4,6 +4,7 @@ import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { VoiceSetupWaveform } from '../VoiceSetupWaveform'
+import { Square, Circle } from 'lucide-react-native'
 
 type Props = {
   theme: Theme
@@ -71,8 +72,13 @@ export function RecordStep({
           style={[styles.recordButton, { backgroundColor: isRecording ? '#FF3B30' : theme.text }]}
           onPress={isRecording ? onStop : onStart}
         >
+          {isRecording ? (
+            <Square size={20} color="#FFFFFF" fill="#FFFFFF" />
+          ) : (
+            <Circle size={20} color={theme.background} fill={theme.background} />
+          )}
           <Text style={[styles.recordButtonText, { color: isRecording ? '#FFFFFF' : theme.background }]}>
-            {isRecording ? '⏹  Stop recording' : '⏺  Start recording'}
+            {isRecording ? 'Stop recording' : 'Start recording'}
           </Text>
         </Pressable>
       ) : (
@@ -138,6 +144,8 @@ const styles = StyleSheet.create({
     borderRadius: Radius.full,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: Spacing.sm,
   },
   recordButtonText: {
     fontFamily: FontFamily.medium,

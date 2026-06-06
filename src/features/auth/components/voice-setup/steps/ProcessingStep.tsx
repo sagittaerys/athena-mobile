@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { Text, StyleSheet, ActivityIndicator } from 'react-native'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'

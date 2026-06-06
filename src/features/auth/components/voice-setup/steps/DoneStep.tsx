@@ -3,12 +3,13 @@ import Animated, { FadeInDown } from 'react-native-reanimated'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { Check } from 'lucide-react-native'
 
 export function DoneStep({ theme }: { theme: Theme }) {
   return (
     <Animated.View entering={FadeInDown.springify()} style={styles.container}>
       <View style={[styles.iconCircle, { backgroundColor: theme.backgroundSecondary }]}>
-        <Text style={styles.icon}>✓</Text>
+        <Check size={32} color={theme.text} />
       </View>
       <Text style={[styles.title, { color: theme.text }]}>
         Your voice{'\n'}is ready.
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  icon: { fontSize: 32 },
+ 
   title: {
     fontFamily: FontFamily.bold,
     fontSize: FontSize.xxxl,

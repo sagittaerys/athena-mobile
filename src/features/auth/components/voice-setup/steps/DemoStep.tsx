@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { Text, StyleSheet, Pressable } from 'react-native'
 import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { VoiceSetupWaveform } from '../VoiceSetupWaveform'
+import { Play, Pause } from "lucide-react-native"
+
 
 type Props = {
   theme: Theme
@@ -32,8 +34,13 @@ export function DemoStep({ theme, isPlaying, onPlay, onStop }: Props) {
         style={[styles.playButton, { borderColor: theme.border }]}
         onPress={isPlaying ? onStop : onPlay}
       >
+        {isPlaying ? (
+          <Pause size={20} color={theme.text} />
+        ) : (
+          <Play size={20} color={theme.text} />
+        )}
         <Text style={[styles.playButtonText, { color: theme.text }]}>
-          {isPlaying ? '⏸  Pause' : '▶  Play sample'}
+          {isPlaying ? 'Pause' : 'Play sample'}
         </Text>
       </Pressable>
     </Animated.View>
@@ -62,6 +69,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: Spacing.sm,
   },
   playButtonText: {
     fontFamily: FontFamily.medium,

@@ -3,6 +3,7 @@ import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { Dot } from 'lucide-react-native'
 
 const TIPS = [
   'Quiet room, minimal background noise',
@@ -28,13 +29,13 @@ export function IntroStep({ theme }: { theme: Theme }) {
       <Text style={[styles.body, { color: theme.textSecondary }]}>
         We need about 60 seconds of you reading aloud. Athena will use this to synthesise
         speech that sounds exactly like you.{'\n\n'}
-        Find a quiet place and read naturally — no need to be perfect.
+        Find a quiet place and read naturally, no need to be perfect.
       </Text>
 
       <View style={styles.tips}>
         {TIPS.map(tip => (
           <View key={tip} style={styles.tip}>
-            <Text style={[styles.tipDot, { color: theme.text }]}>•</Text>
+            <Dot size={20} color={theme.text} />
             <Text style={[styles.tipText, { color: theme.textSecondary }]}>{tip}</Text>
           </View>
         ))}
@@ -72,11 +73,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: Spacing.sm,
     alignItems: 'flex-start',
-  },
-  tipDot: {
-    fontFamily: FontFamily.bold,
-    fontSize: FontSize.md,
-    marginTop: 2,
   },
   tipText: {
     fontFamily: FontFamily.regular,
