@@ -26,9 +26,18 @@ export const AuthService = {
       await apiRequest('/api/v1/auth/logout', {
         method: 'DELETE',
         body: JSON.stringify({ refresh_token: refreshToken }),
-      }).catch(() => {})
+      }).catch(() => { })
     }
     await TokenStorage.clearTokens()
+  },
+
+  async getVoiceProfile(): Promise<VoiceProfile | null> {
+    try {
+      const data = await apiRequest<{ voice_profile: VoiceProfile | null }>('/api/v1/voice_profiles/current')
+      return data.voice_profile
+    } catch {
+      return null
+    }
   },
 
   async createVoiceProfile(audioUri: string): Promise<VoiceProfile> {

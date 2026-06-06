@@ -79,6 +79,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     const token = await TokenStorage.getAccessToken()
     if (!token) {
       set({ isAuthenticated: false })
+      return
+    }
+    try {
+      const voiceProfile = await AuthService.getVoiceProfile()
+      set({ isAuthenticated: true, voiceProfile })
+    } catch {
+      set({ isAuthenticated: false })
     }
   },
 }))
