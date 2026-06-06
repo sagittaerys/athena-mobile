@@ -5,15 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { View } from 'react-native'
 import { ONBOARDING_KEY } from '@/shared/constants/onboarding'
 
-
 export default function Index() {
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, voiceProfile } = useAuthStore()
   const [onboardingComplete, setOnboardingComplete] = useState<boolean | null>(null)
 
   useEffect(() => {
-      AsyncStorage.getItem(ONBOARDING_KEY).then(value => {
-        setOnboardingComplete(value === 'true')
-      })
+    AsyncStorage.getItem(ONBOARDING_KEY).then(value => {
+      setOnboardingComplete(value === 'true')
+    })
   }, [])
 
   if (onboardingComplete === null) {
@@ -24,9 +23,13 @@ export default function Index() {
     return <Redirect href="/(auth)/onboarding" />
   }
 
-  if (isAuthenticated) {
-    return <Redirect href="/(tabs)" />
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/welcome" />
   }
 
-  return <Redirect href="/(auth)/welcome" />
+  if (!voiceProfile) {
+    return <Redirect href="/(auth)/voice-setup" />
+  }
+
+  return <Redirect href="/(tabs)" />
 }
