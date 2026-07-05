@@ -41,12 +41,11 @@ export const AuthService = {
   },
 
   async createVoiceProfile(audioUri: string): Promise<VoiceProfile> {
+    const fileResponse = await fetch(audioUri)
+    const blob = await fileResponse.blob()
+
     const formData = new FormData()
-    formData.append('audio_file', {
-      uri: audioUri,
-      name: 'sample.wav',
-      type: 'audio/wav',
-    } as any)
+    formData.append('audio_file', blob, 'sample.wav')
 
     const accessToken = await TokenStorage.getAccessToken()
     const response = await fetch(

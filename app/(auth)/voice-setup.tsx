@@ -45,7 +45,8 @@ export default function VoiceSetupScreen() {
       const profile = await AuthService.createVoiceProfile(recorder.recordingUri)
       setVoiceProfile(profile)
       setStep('done')
-    } catch {
+    } catch (error) {
+      console.error('createVoiceProfile failed:', error)
       setSubmitError('Voice processing failed. Please try again.')
       setStep('record')
     }
