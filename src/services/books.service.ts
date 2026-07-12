@@ -1,5 +1,6 @@
 import { apiRequest } from '@/shared/utils/api'
 import type { Book, LibraryItem, EpubChapter } from '@/shared/types/book'
+import type { AudioChunk } from '@/shared/types/audio'
 
 interface BooksResponse {
   books: Book[]
@@ -78,4 +79,33 @@ export const LibraryService = {
     )
     return data.chapters
   },
+
+   async requestAudioChunk(
+    libraryItemId: number,
+    chapterIndex: number,
+    chunkIndex: number,
+    text: string
+  ): Promise<AudioChunk> {
+    const data = await apiRequest<{ audio_chunk: AudioChunk }>(
+      `/api/v1/library_items/${libraryItemId}/audio_chunks`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ chapter_index: chapterIndex, chunk_index: chunkIndex, text }),
+      }
+    )
+    return data.audio_chunk
+  },
+
+  async getAudioChunk(libraryItemId: number, chunkId: number): Promise<AudioChunk> {
+    const data = await apiRequest<{ audio_chunk: AudioChunk }>(
+      `/api/v1/library_items/${libraryItemId}/audio_chunks/${chunkId}`
+    )
+    return data.audio_chunk
+  },
+
+  streamUrl(libraryItemId: number, chunkId: number): string {
+    const base = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3000'
+    return `${base}/api/v1/library_items/${libraryItemId}/audio_chunks/${chunkId}/stream`
+  },
+
 }

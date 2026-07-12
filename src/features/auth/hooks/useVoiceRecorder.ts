@@ -35,8 +35,8 @@ export function useVoiceRecorder() {
     if (timerRef.current) clearInterval(timerRef.current)
     setIsRecording(false)
     try {
-      const uri = await recorder.stop()
-      setRecordingUri(uri as unknown as string)
+      await recorder.stop()
+      setRecordingUri(recorder.uri)
     } catch {
       setError('Recording failed. Please try again.')
     }

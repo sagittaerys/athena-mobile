@@ -1,7 +1,7 @@
 export type BookSource = 'gutenberg' | 'open_library' | 'standard_ebooks' | 'imported'
 
 export interface Book {
-  external_id: string
+  external_id: string | null
   source: BookSource
   title: string
   author: string
