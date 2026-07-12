@@ -3,7 +3,7 @@ import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
-import { Dot } from 'lucide-react-native'
+import { Mic, Dot } from 'lucide-react-native'
 
 const TIPS = [
   'Quiet room, minimal background noise',
@@ -19,7 +19,7 @@ export function IntroStep({ theme }: { theme: Theme }) {
       style={styles.container}
     >
       <View style={[styles.iconCircle, { backgroundColor: theme.backgroundSecondary }]}>
-        <Text style={styles.icon}>🎙️</Text>
+        <Mic size={32} color={theme.text} />
       </View>
 
       <Text style={[styles.title, { color: theme.text }]}>
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  icon: { fontSize: 32 },
   title: {
     fontFamily: FontFamily.bold,
     fontSize: FontSize.xxxl,

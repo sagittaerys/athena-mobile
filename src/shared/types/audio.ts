@@ -1,9 +1,11 @@
-export type AudioChunkStatus = 'pending' | 'ready' | 'failed'
+export type AudioChunkStatus = 'pending' | 'processing' | 'ready' | 'failed'
 
 export interface AudioChunk {
   id: number
+  library_item_id: number
   chapter_index: number
   chunk_index: number
+  text: string
   audio_url: string | null
   status: AudioChunkStatus
 }
