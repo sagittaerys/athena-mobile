@@ -9,7 +9,6 @@ import {
   RefreshControl,
 } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, { FadeInDown } from 'react-native-reanimated'
@@ -18,10 +17,12 @@ import { useLibraryStore } from '@/features/library/store/libraryStore'
 import { useAuthStore } from '@/features/auth/store/authStore'
 import { usePlayerStore } from '@/features/player/store/playerStore'
 import { MiniPlayer } from '@/shared/components/MiniPlayer'
-import { Colors, Theme } from '@/shared/constants/colors'
+import {  Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import type { LibraryItem } from '@/shared/types/book'
+import { useTheme } from '@/shared/hooks/useTheme'
+
 
 const { width } = Dimensions.get('window')
 const COLUMN_GAP = Spacing.md
@@ -108,8 +109,7 @@ function EmptyLibrary({ theme, onExplore }: { theme: Theme; onExplore: () => voi
 }
 
 export default function LibraryScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
   const insets = useSafeAreaInsets()
 
   const { user } = useAuthStore()

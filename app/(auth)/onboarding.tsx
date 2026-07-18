@@ -1,7 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { View, Text, StyleSheet, Pressable, FlatList, ViewToken } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Animated, {
   FadeIn,
@@ -9,16 +8,15 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { Colors, Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { SLIDES, ONBOARDING_KEY } from '@/shared/constants/onboarding'
 import { OnboardingSlide } from '@/features/auth/components/OnboardingSlide'
 import { OnboardingDot } from '@/features/auth/components/OnboardingDot'
+ import { useTheme } from '@/shared/hooks/useTheme'
 
 export default function OnboardingScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
   const [activeIndex, setActiveIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const scrollX = useSharedValue(0)

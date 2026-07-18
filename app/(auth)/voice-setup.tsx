@@ -17,13 +17,14 @@ import { DemoStep } from '@/features/auth/components/voice-setup/steps/DemoStep'
 import { RecordStep } from '@/features/auth/components/voice-setup/steps/RecordStep'
 import { ProcessingStep } from '@/features/auth/components/voice-setup/steps/ProcessingStep'
 import { DoneStep } from '@/features/auth/components/voice-setup/steps/DoneStep'
+import { useTheme } from '@/shared/hooks/useTheme'
+
 
 type Step = 'intro' | 'demo' | 'record' | 'processing' | 'done'
 const STEPS: Step[] = ['intro', 'demo', 'record', 'processing', 'done']
 
 export default function VoiceSetupScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+ const { theme } = useTheme()
   const { setVoiceProfile } = useAuthStore()
   const [step, setStep] = useState<Step>('intro')
   const [submitError, setSubmitError] = useState<string | null>(null)

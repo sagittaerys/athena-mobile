@@ -1,12 +1,10 @@
 import { Platform } from 'react-native'
 import { Tabs } from 'expo-router'
-import { useColorScheme } from 'react-native'
-import { Colors, Theme } from '@/shared/constants/colors'
 import { AndroidTabBar } from '@/shared/components/TabBar/AndroidTabBar'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 export default function TabsLayout() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+ const { theme } = useTheme()
 
 //  iOS 26+ gets native tab bar with liquid glass effect
   if (Platform.OS === 'ios' && parseInt(Platform.Version as string, 10) >= 26) {

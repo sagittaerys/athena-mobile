@@ -29,8 +29,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isLoading: true, error: null })
     try {
       const data = await AuthService.login(payload)
+      const voiceProfile = await AuthService.getVoiceProfile()
       set({
         user: data.user,
+        voiceProfile,
         isAuthenticated: true,
         isLoading: false,
       })
@@ -82,8 +84,11 @@ export const useAuthStore = create<AuthState>((set) => ({
       return
     }
     try {
-      const voiceProfile = await AuthService.getVoiceProfile()
-      set({ isAuthenticated: true, voiceProfile })
+      const [user, voiceProfile] = await Promise.all([
+        AuthService.getCurrentUser(),
+        AuthService.getVoiceProfile(),
+      ])
+      set({ isAuthenticated: true, user, voiceProfile })
     } catch {
       set({ isAuthenticated: false })
     }

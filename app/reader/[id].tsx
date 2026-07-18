@@ -5,7 +5,6 @@ import {
   StyleSheet,
   FlatList,
   Pressable,
-  useColorScheme,
 } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -19,10 +18,11 @@ import Animated, {
 import { ChevronLeft } from 'lucide-react-native'
 import { useLibraryStore } from '@/features/library/store/libraryStore'
 import { usePlayerStore } from '@/features/player/store/playerStore'
-import { Colors, Theme } from '@/shared/constants/colors'
+import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import type { EpubChapter } from '@/shared/types/book'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 type ReaderFont = 'serif' | 'sans'
 type ReaderSize = 'sm' | 'md' | 'lg'
@@ -105,8 +105,7 @@ function ReaderControls({
 }
 
 export default function ReaderScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
   const insets = useSafeAreaInsets()
   const { id } = useLocalSearchParams<{ id: string }>()
 

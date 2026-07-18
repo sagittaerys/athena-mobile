@@ -10,7 +10,6 @@ import {
   Alert,
 } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { BlurView } from 'expo-blur'
@@ -27,18 +26,18 @@ import { ChevronLeft, BookOpen, Play, Mic, Check, Plus } from 'lucide-react-nati
 import { useLibraryStore } from '@/features/library/store/libraryStore'
 import { usePlayerStore } from '@/features/player/store/playerStore'
 import { useAuthStore } from '@/features/auth/store/authStore'
-import { Colors, Theme } from '@/shared/constants/colors'
+import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import type { LibraryItem } from '@/shared/types/book'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 const { width, height } = Dimensions.get('window')
 const COVER_HEIGHT = height * 0.45
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 export default function BookDetailScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme, scheme } = useTheme()
   const insets = useSafeAreaInsets()
   const { id } = useLocalSearchParams<{ id: string }>()
 
@@ -177,7 +176,7 @@ export default function BookDetailScreen() {
       <Animated.View style={[styles.stickyHeader, { paddingTop: insets.top }, headerStyle]}>
         <BlurView
           intensity={90}
-          tint={colorScheme === 'dark' ? 'dark' : 'light'}
+          tint={scheme === 'dark' ? 'dark' : 'light'}
           style={StyleSheet.absoluteFill}
         />
         <Pressable onPress={() => router.back()} hitSlop={12} style={styles.backButtonRow}>

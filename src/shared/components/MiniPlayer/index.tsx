@@ -1,6 +1,5 @@
 import { Pressable, View, Text, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { BlurView } from 'expo-blur'
@@ -8,13 +7,12 @@ import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
 import { Play, Pause, X, BookOpen } from 'lucide-react-native'
 import { usePlayerStore } from '@/features/player/store/playerStore'
 import { useLibraryStore } from '@/features/library/store/libraryStore'
-import { Colors, Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 export function MiniPlayer() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme, scheme } = useTheme()
   const insets = useSafeAreaInsets()
 
   const { isVisible, isPlaying, libraryItemId, setPlaying } = usePlayerStore()
@@ -36,7 +34,7 @@ export function MiniPlayer() {
       <Pressable onPress={() => router.push('/player')}>
         <BlurView
           intensity={90}
-          tint={colorScheme === 'dark' ? 'dark' : 'light'}
+          tint={scheme === 'dark' ? 'dark' : 'light'}
           style={[
             styles.container,
             {
