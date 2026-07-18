@@ -8,6 +8,7 @@ import {
   Switch,
   Alert,
   useColorScheme,
+  Linking
 } from 'react-native'
 import { router } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -103,6 +104,7 @@ export default function MeScreen() {
   const [isDark, setIsDark] = useState(colorScheme === 'dark')
 
   const handleLogout = useCallback(() => {
+    // i'll be adding a modal here sha..
     Alert.alert('Sign out', 'Are you sure you want to sign out?', [
       { text: 'Cancel', style: 'cancel' },
       {
@@ -132,15 +134,15 @@ export default function MeScreen() {
 
   const voiceStatusText =
     voiceProfile?.status === 'ready' ? 'Ready' :
-    voiceProfile?.status === 'pending' ? 'Processing' :
-    voiceProfile?.status === 'failed' ? 'Failed' :
-    'Not set up'
+      voiceProfile?.status === 'pending' ? 'Processing' :
+        voiceProfile?.status === 'failed' ? 'Failed' :
+          'Not set up'
 
   const voiceStatusIcon =
     voiceProfile?.status === 'ready' ? <Check size={16} color="#34C759" /> :
-    voiceProfile?.status === 'pending' ? <Clock size={16} color={theme.textTertiary} /> :
-    voiceProfile?.status === 'failed' ? <X size={16} color="#FF3B30" /> :
-    null
+      voiceProfile?.status === 'pending' ? <Clock size={16} color={theme.textTertiary} /> :
+        voiceProfile?.status === 'failed' ? <X size={16} color="#FF3B30" /> :
+          null
 
   const bottomPadding = 80 + (playerVisible ? 72 : 0) + (insets.bottom || 0)
 
@@ -185,7 +187,7 @@ export default function MeScreen() {
           <Section title="ACCOUNT" theme={theme}>
             <SettingsRow label="Username" value={user?.username} theme={theme} />
             <SettingsRow label="Email" value={user?.email} theme={theme} />
-            <SettingsRow label="Change password" onPress={() => {}} theme={theme} />
+            <SettingsRow label="Change password" onPress={() => { }} theme={theme} />
           </Section>
         </Animated.View>
 
@@ -212,16 +214,20 @@ export default function MeScreen() {
             <SettingsRow
               label="Open source"
               value="github.com/sagittaerys"
-              onPress={() => {}}
+              onPress={() => Linking.openURL('https://github.com/sagittaerys')}
               theme={theme}
             />
-            <SettingsRow label="Acknowledgements" onPress={() => {}} theme={theme} />
+            <SettingsRow
+              label="Acknowledgements"
+              onPress={() => Linking.openURL('https://github.com/Ashish-Patnaik/kokoclone')}
+              theme={theme}
+            />
           </Section>
         </Animated.View>
 
         <Animated.View entering={FadeInDown.delay(240).springify()}>
           <Section title="" theme={theme}>
-            <SettingsRow label="Sign out" onPress={handleLogout} destructive theme={theme} />
+            <SettingsRow label="Sign Out" onPress={handleLogout} destructive theme={theme} />
           </Section>
         </Animated.View>
       </ScrollView>
@@ -232,7 +238,10 @@ export default function MeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    marginBottom: Spacing.xxl,
+   },
   content: {
     paddingHorizontal: Spacing.xl,
     paddingTop: 60,
