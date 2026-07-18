@@ -1,5 +1,6 @@
+import { File, UploadType } from 'expo-file-system'
 import { apiRequest, TokenStorage } from '@/shared/utils/api'
-import type { AuthResponse, LoginPayload, RegisterPayload, VoiceProfile } from '@/shared/types/auth'
+import type { User, AuthResponse, LoginPayload, RegisterPayload, VoiceProfile } from '@/shared/types/auth'
 
 export const AuthService = {
   async login(payload: LoginPayload): Promise<AuthResponse> {
@@ -31,6 +32,11 @@ export const AuthService = {
     await TokenStorage.clearTokens()
   },
 
+  async getCurrentUser(): Promise<User> {
+    const data = await apiRequest<{ user: User }>('/api/v1/auth/me')
+    return data.user
+  },
+
   async getVoiceProfile(): Promise<VoiceProfile | null> {
     try {
       const data = await apiRequest<{ voice_profile: VoiceProfile | null }>('/api/v1/voice_profiles/current')
@@ -41,30 +47,29 @@ export const AuthService = {
   },
 
   async createVoiceProfile(audioUri: string): Promise<VoiceProfile> {
-    const fileResponse = await fetch(audioUri)
-    const blob = await fileResponse.blob()
-
-    const formData = new FormData()
-    formData.append('audio_file', blob, 'sample.wav')
-
     const accessToken = await TokenStorage.getAccessToken()
-    const response = await fetch(
+    const file = new File(audioUri)
+
+    const task = file.createUploadTask(
       `${process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3000'}/api/v1/voice_profiles`,
       {
-        method: 'POST',
+        uploadType: UploadType.MULTIPART,
+        fieldName: 'audio_file',
+        mimeType: 'audio/wav',
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        body: formData,
       }
     )
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}))
-      throw new Error(error.error ?? 'Voice profile creation failed')
+    const result = await task.uploadAsync()
+
+    if (!result || result.status < 200 || result.status >= 300) {
+      const parsed = result?.body ? JSON.parse(result.body) : {}
+      throw new Error(parsed.error ?? 'Voice profile creation failed')
     }
 
-    const data = await response.json()
+    const data = JSON.parse(result.body)
     return data.voice_profile
   },
 }
