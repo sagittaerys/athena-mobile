@@ -1,11 +1,9 @@
 import { Tabs } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Library, Compass, CircleUserRound } from 'lucide-react-native'
-import { Colors, Theme } from '@/shared/constants/colors'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 export function IOSNativeTabLayout() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
 
   return (
     <Tabs

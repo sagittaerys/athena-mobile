@@ -1,20 +1,17 @@
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated'
-import { Colors } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { SAMPLE_BOOKS } from '@/shared/constants/welcome'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 const { width, height } = Dimensions.get('window')
 
 
 export default function WelcomeScreen() {
-  const colorScheme = useColorScheme()
-  const scheme = (colorScheme as keyof typeof Colors) ?? 'light'
-  const theme = Colors[scheme]
+  const { theme } = useTheme()
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>

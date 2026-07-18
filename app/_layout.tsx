@@ -4,17 +4,16 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useColorScheme } from 'react-native'
 import { useAuthStore } from '@/features/auth/store/authStore'
-import { Colors } from '@/shared/constants/colors'
+import { useThemeStore } from '@/features/settings/store/themeStore'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme()
-  const scheme = (colorScheme as keyof typeof Colors) ?? 'light'
-  const theme = Colors[scheme]
+  const { theme, scheme } = useTheme()
   const { checkAuth } = useAuthStore()
+  const { loadMode } = useThemeStore()
 
   const [fontsLoaded, fontError] = useFonts({
     'CabinetGrotesk-Regular': require('../assets/fonts/CabinetGrotesk-Regular.otf'),
@@ -31,6 +30,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     checkAuth()
+    loadMode()
   }, [])
 
   if (!fontsLoaded && !fontError) {
@@ -39,7 +39,7 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <Stack
         screenOptions={{
           headerShown: false,
@@ -49,6 +49,12 @@ export default function RootLayout() {
       >
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="player"
+          options={{ animation: 'slide_from_bottom', presentation: 'modal' }}
+        />
+        <Stack.Screen name="book/[id]" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="reader/[id]" options={{ animation: 'slide_from_right' }} />
       </Stack>
     </GestureHandlerRootView>
   )

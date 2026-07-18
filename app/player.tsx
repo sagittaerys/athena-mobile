@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
@@ -27,10 +26,11 @@ import { ChevronDown, X, BookOpen, RotateCcw, RotateCw, Play, Pause } from 'luci
 import { usePlayerStore } from '@/features/player/store/playerStore'
 import { useLibraryStore } from '@/features/library/store/libraryStore'
 import { useAudioPlayer } from '@/features/player/hooks/useAudioPlayer'
-import { Colors, Theme } from '@/shared/constants/colors'
+import {  Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import type { PlaybackSpeed } from '@/shared/types/audio'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 const { width, height } = Dimensions.get('window')
 const BAR_COUNT = 48
@@ -158,8 +158,7 @@ function SpeedSelector({
 }
 
 export default function PlayerScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme, scheme } = useTheme()
   const insets = useSafeAreaInsets()
 
   const {

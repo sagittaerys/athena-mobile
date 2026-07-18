@@ -9,21 +9,19 @@ import {
   ScrollView,
 } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import { useAuthStore } from '@/features/auth/store/authStore'
-import { Colors, Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import { AuthInput } from '@/features/auth/components/AuthInput'
 import { X } from 'lucide-react-native';
 import { CircleArrowLeft } from 'lucide-react-native';
+import { useTheme } from '@/shared/hooks/useTheme'
 
 
 
 export default function LoginScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
   const { login, isLoading, error, clearError } = useAuthStore()
 
   const [email, setEmail] = useState('')

@@ -7,7 +7,6 @@ import {
   ScrollView,
   Switch,
   Alert,
-  useColorScheme,
   Linking
 } from 'react-native'
 import { router } from 'expo-router'
@@ -17,9 +16,11 @@ import { ChevronRight, Check, Clock, X } from 'lucide-react-native'
 import { useAuthStore } from '@/features/auth/store/authStore'
 import { usePlayerStore } from '@/features/player/store/playerStore'
 import { MiniPlayer } from '@/shared/components/MiniPlayer'
-import { Colors, Theme } from '@/shared/constants/colors'
+import {  Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
+import { useThemeStore } from '@/features/settings/store/themeStore'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 function SettingsRow({
   label,
@@ -95,13 +96,14 @@ function Avatar({ username, theme }: { username: string; theme: Theme }) {
 }
 
 export default function MeScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme, scheme } = useTheme()
+  const { mode, setMode } = useThemeStore()
+  const useSystemSetting = mode === 'system'
   const insets = useSafeAreaInsets()
 
   const { user, voiceProfile, logout } = useAuthStore()
   const { isVisible: playerVisible } = usePlayerStore()
-  const [isDark, setIsDark] = useState(colorScheme === 'dark')
+
 
   const handleLogout = useCallback(() => {
     // i'll be adding a modal here sha..
@@ -194,17 +196,32 @@ export default function MeScreen() {
         <Animated.View entering={FadeInDown.delay(160).springify()}>
           <Section title="APPEARANCE" theme={theme}>
             <SettingsRow
-              label="Dark mode"
+              label="Use system setting"
               theme={theme}
               rightElement={
                 <Switch
-                  value={isDark}
-                  onValueChange={setIsDark}
+                  value={useSystemSetting}
+                  onValueChange={(value) => setMode(value ? 'system' : scheme)}
                   trackColor={{ false: theme.border, true: theme.text }}
                   thumbColor={theme.background}
                 />
               }
             />
+            <View style={{ opacity: useSystemSetting ? 0.4 : 1 }}>
+              <SettingsRow
+                label="Dark mode"
+                theme={theme}
+                rightElement={
+                  <Switch
+                    value={scheme === 'dark'}
+                    onValueChange={(value) => setMode(value ? 'dark' : 'light')}
+                    disabled={useSystemSetting}
+                    trackColor={{ false: theme.border, true: theme.text }}
+                    thumbColor={theme.background}
+                  />
+                }
+              />
+            </View>
           </Section>
         </Animated.View>
 
@@ -241,7 +258,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: Spacing.xxl,
-   },
+  },
   content: {
     paddingHorizontal: Spacing.xl,
     paddingTop: 60,

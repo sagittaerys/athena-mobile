@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 import {
   View,
   Text,
@@ -10,7 +10,6 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { router } from 'expo-router'
-import { useColorScheme } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated'
@@ -18,10 +17,11 @@ import { Search, X, BookOpen, Check } from 'lucide-react-native'
 import { useDiscoverStore } from '@/features/discover/store/discoverStore'
 import { useLibraryStore } from '@/features/library/store/libraryStore'
 import { MiniPlayer } from '@/shared/components/MiniPlayer'
-import { Colors, Theme } from '@/shared/constants/colors'
+import {  Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
 import { Spacing, Radius } from '@/shared/constants/spacing'
 import type { Book } from '@/shared/types/book'
+import { useTheme } from '@/shared/hooks/useTheme'
 
 const { width } = Dimensions.get('window')
 const COLUMN_GAP = Spacing.md
@@ -131,8 +131,7 @@ function EmptyResults({ query, theme }: { query: string; theme: Theme }) {
 }
 
 export default function DiscoverScreen() {
-  const colorScheme = useColorScheme()
-  const theme: Theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
+  const { theme } = useTheme()
   const insets = useSafeAreaInsets()
 
   const {
