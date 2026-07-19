@@ -257,7 +257,7 @@ export default function MeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: Spacing.xxl,
+    paddingBottom: Spacing.xxl,
   },
   content: {
     paddingHorizontal: Spacing.xl,
