@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
-import { ChevronLeft } from 'lucide-react-native'
+import { SquareChevronLeft } from 'lucide-react-native'
 import { SearchBar } from './SearchBar'
 import { Theme } from '@/shared/constants/colors'
 import { FontFamily, FontSize } from '@/shared/constants/typography'
@@ -21,7 +21,7 @@ export function DiscoverHeader({
     <View style={styles.header}>
       {showBack ? (
         <Pressable onPress={onBack} hitSlop={12} style={styles.backRow}>
-          <ChevronLeft size={29} color={theme.text} />
+          <SquareChevronLeft size={40} style={styles.backIcon} color={theme.text} />
           <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
         </Pressable>
       ) : (
@@ -35,6 +35,7 @@ export function DiscoverHeader({
 const styles = StyleSheet.create({
   header: { gap: Spacing.lg, marginBottom: Spacing.xl },
   backRow: { flexDirection: 'row', alignItems: 'center', gap: 2 },
+  backIcon: { marginLeft: -4, marginRight: 4, fontFamily: FontFamily.medium, fontWeight: '200' },
   title: {
     fontFamily: FontFamily.bold,
     fontSize: FontSize.xxl,
